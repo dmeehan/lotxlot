@@ -20,14 +20,27 @@ class Lot(models.Model):
 
     # spatial fields
     coordinates = models.PointField()
-    geom = models.MultiPolygonField(srid=4326)
 
     class Meta:
         abstract = True
 
 
 class PhlParcel(Lot):
-    # fields from Philadelphia City Planning shapefile for parcels
+    # fields from Philadelphia City Planning shapefile for landuse
+    objectid = models.IntegerField()
+    c_dig1 = models.IntegerField()
+    c_dig1desc = models.CharField(max_length=50)
+    c_dig2 = models.IntegerField()
+    c_dig2desc = models.CharField(max_length=50)
+    c_dig3 = models.IntegerField()
+    c_dig3desc = models.CharField(max_length=250)
+    lu_current = models.IntegerField()
+    shape_area = models.FloatField()
+    shape_len = models.FloatField()
+    geom = models.MultiPolygonField(srid=4326)
+
+
+    """
     objectid = models.IntegerField()
     recsub = models.CharField(max_length=2, null=True, blank=True,
                               help_text="Submap to a registry map")
@@ -64,8 +77,8 @@ class PhlParcel(Lot):
     geoid = models.CharField(max_length=25, null=True, blank=True)
     shape_area = models.FloatField(null=True, blank=True)
     shape_len = models.FloatField(null=True, blank=True)
-
-
+    geom = models.MultiPolygonField(srid=4326)
+    """
 
 # Auto-generated `LayerMapping` dictionary for PhlParcel model
 phlparcel_mapping = {
@@ -123,3 +136,19 @@ class PhlPublicVacantLot(models.Model):
     taxable_building_value = models.DecimalField(max_digits=11, decimal_places=2)
     exempt_land_value = models.DecimalField(max_digits=11, decimal_places=2)
     exempt_building_value = models.DecimalField(max_digits=11, decimal_places=2)
+
+
+# Auto-generated `LayerMapping` dictionary for Parcel model
+parcel_mapping = {
+    'objectid' : 'OBJECTID',
+    'c_dig1' : 'C_DIG1',
+    'c_dig1desc' : 'C_DIG1DESC',
+    'c_dig2' : 'C_DIG2',
+    'c_dig2desc' : 'C_DIG2DESC',
+    'c_dig3' : 'C_DIG3',
+    'c_dig3desc' : 'C_DIG3DESC',
+    'lu_current' : 'LU_CURRENT',
+    'shape_area' : 'SHAPE_AREA',
+    'shape_len' : 'SHAPE_LEN',
+    'geom' : 'MULTIPOLYGON',
+    }
